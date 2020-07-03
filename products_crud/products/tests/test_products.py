@@ -7,24 +7,18 @@ from products.models import Product
 # Create your tests here.
 class ProductTest(TestCase):
 
-    products = [
-        {
-            "name": "Product 1",
-            "price": 100.0
-        },
-        {
-            "name": "Product 2",
-            "price": 200.0
-        },
-    ]
-
     @classmethod
     def setUpTestData(cls):
         cls.client = APIClient(content_type='application/json')
         cls.url = "/api/product/"
-        products = [Product(name=product['name'], price=product['price'])
-            for product in cls.products]
-        Product.objects.bulk_create(products)
+
+        number_of_products = 5
+
+        for product_id in range(number_of_products):
+            Product.objects.create(
+                name=f"Product #{product_id}",
+                price=product_id
+            )
 
     def setUp(self):
         # setUp run after every single test method
