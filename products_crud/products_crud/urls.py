@@ -19,11 +19,13 @@ from django.urls import path, include
 from django.conf.urls import url
 from rest_framework.routers import DefaultRouter
 from products import views as products_app_views
+from auth_app import urls
 
 router = DefaultRouter()
 router.register(r'api/product', products_app_views.ProductAPI)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('auth/', include(urls)),
     url(r'', include(router.urls))
 ]
